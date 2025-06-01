@@ -347,49 +347,50 @@ public class MainPage extends Application {
 
         // Ajout de rappel
         Label addReminderLabel = new Label("Créer un nouveau rappel :");
-        addReminderLabel.getStyleClass().addAll("title-secondary", "margin-top-20");
+        addReminderLabel.getStyleClass().addAll("title-secondary", "margin-top-10");
 
-        GridPane reminderForm = new GridPane();
-        reminderForm.setHgap(10);
-        reminderForm.setVgap(10);
-        reminderForm.getStyleClass().add("info-box");
+        HBox reminderForm = new HBox();
+        reminderForm.setSpacing(10);
+        reminderForm.setAlignment(Pos.CENTER_LEFT);
 
         Label messageLabel = new Label("Message :");
         messageLabel.getStyleClass().add("text-bold");
-        reminderForm.add(messageLabel, 0, 0);
 
         reminderTextField = new TextField();
-        reminderTextField.setPrefWidth(250);
+        reminderTextField.setPrefWidth(200);
         reminderTextField.setPromptText("Ex: Pensez à faire une pause !");
-        reminderForm.add(reminderTextField, 1, 0);
 
         Label timeLabel = new Label("Heure :");
         timeLabel.getStyleClass().add("text-bold");
-        reminderForm.add(timeLabel, 0, 1);
 
         reminderTimeCombo = new ComboBox<>();
         fillTimeComboBox();
-        reminderForm.add(reminderTimeCombo, 1, 1);
 
         Label frequencyLabel = new Label("Fréquence :");
         frequencyLabel.getStyleClass().add("text-bold");
-        reminderForm.add(frequencyLabel, 0, 2);
 
         reminderFrequencyCombo = new ComboBox<>();
         reminderFrequencyCombo.getItems().addAll("Quotidien", "Lundi-Vendredi", "Week-end", "Personnalisé");
         reminderFrequencyCombo.setValue("Quotidien");
-        reminderForm.add(reminderFrequencyCombo, 1, 2);
 
-        addReminderButton = new Button("Ajouter Rappel");
+        addReminderButton = new Button("Ajouter");
         addReminderButton.getStyleClass().addAll("button", "button-success");
-        reminderForm.add(addReminderButton, 1, 3);
+
+        // Ajouter tous les éléments à la HBox
+        reminderForm.getChildren().addAll(
+                messageLabel, reminderTextField,
+                timeLabel, reminderTimeCombo,
+                frequencyLabel, reminderFrequencyCombo,addReminderButton);
+        reminderForm.getStyleClass().add("info-box");
+
+
 
         // Liste des rappels
         Label remindersListLabel = new Label("Rappels configurés :");
         remindersListLabel.getStyleClass().addAll("title-secondary", "margin-top-20");
 
         remindersList = new ListView<>();
-        remindersList.setPrefHeight(150);
+        remindersList.setPrefHeight(200);
 
         deleteReminderButton = new Button("Supprimer le rappel sélectionné");
         deleteReminderButton.getStyleClass().addAll("button", "button-danger");
@@ -471,18 +472,9 @@ public class MainPage extends Application {
         titleLabel.getStyleClass().addAll("title-main", "text-center");
 
         // Bouton d'analyse
-        analyzeButton = new Button("Analyser mon état émotionnel");
+        analyzeButton = new Button("Analyser");
         analyzeButton.getStyleClass().addAll("button", "button-primary", "pulse-animation");
-        analyzeButton.setPrefWidth(250);
-
-        // Zone d'analyse générale
-        Label analysisLabel = new Label("Analyse de votre bien-être :");
-        analysisLabel.getStyleClass().addAll("title-secondary", "margin-top-20");
-
-        aiAnalysisArea = new TextArea();
-        aiAnalysisArea.setPrefRowCount(4);
-        aiAnalysisArea.setEditable(false);
-        aiAnalysisArea.setText("Cliquez sur 'Analyser' pour obtenir une évaluation de votre état émotionnel basée sur vos données.");
+        analyzeButton.setPrefWidth(200);
 
         // Tendance détectée
         Label trendTitle = new Label("Tendance émotionnelle détectée :");
@@ -496,7 +488,7 @@ public class MainPage extends Application {
         recommendationsTitle.getStyleClass().addAll("title-secondary", "text-bold");
 
         recommendationsArea = new TextArea();
-        recommendationsArea.setPrefRowCount(6);
+        recommendationsArea.setPrefRowCount(8);
         recommendationsArea.setEditable(false);
         recommendationsArea.setPromptText("Les recommandations apparaîtront ici après l'analyse...");
 
@@ -507,17 +499,13 @@ public class MainPage extends Application {
         predictionLabel = new Label("Prédiction disponible après analyse");
         predictionLabel.getStyleClass().add("prediction-box");
 
-        // Note d'information
-        Label infoLabel = new Label("⚠️ L'IA analyse vos données pour vous donner des conseils. Ces suggestions ne remplacent pas un avis médical professionnel.");
-        infoLabel.getStyleClass().add("info-box");
-        infoLabel.setWrapText(true);
 
         // Listeners
         analyzeButton.setOnAction(e -> performAIAnalysis());
 
-        content.getChildren().addAll(titleLabel, analyzeButton, analysisLabel, aiAnalysisArea,
+        content.getChildren().addAll(titleLabel, analyzeButton,
                 trendTitle, trendLabel, recommendationsTitle, recommendationsArea,
-                predictionTitle, predictionLabel, infoLabel);
+                predictionTitle, predictionLabel);
 
         ScrollPane scrollPane = new ScrollPane(content);
         scrollPane.getStyleClass().add("scroll-pane");
@@ -696,7 +684,6 @@ public class MainPage extends Application {
 
     private void performAIAnalysis() {
         // TODO: Implémenter l'analyse IA
-        aiAnalysisArea.setText("Analyse en cours...\n\nBasé sur vos 7 derniers jours de données, votre état émotionnel général semble stable avec une tendance légèrement positive.");
 
         trendLabel.setText("📈 Tendance stable avec amélioration légère (+0.3 points sur 7 jours)");
         trendLabel.getStyleClass().removeAll("info-box");
