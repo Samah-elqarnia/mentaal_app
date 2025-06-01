@@ -569,8 +569,13 @@ public class MainPage extends Application {
     private void fillTimeComboBox() {
         for (int hour = 6; hour <= 23; hour++) {
             for (int minute = 0; minute < 60; minute += 30) {
-                String time = String.format("%02d:%02d", hour, minute);
-                reminderTimeCombo.getItems().add(time);
+                StringBuilder sb = new StringBuilder();
+                if (hour < 10) sb.append("0");
+                sb.append(hour).append(":");
+                if (minute < 10) sb.append("0");
+                sb.append(minute);
+
+                reminderTimeCombo.getItems().add(sb.toString());
             }
         }
         reminderTimeCombo.setValue("09:00");
