@@ -77,7 +77,7 @@
 
 /* Titres principaux */
 .title-main {
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
     -fx-text-fill: #E91E63;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 1);
@@ -86,7 +86,7 @@
 
 /* Sous-titres */
 .title-secondary {
-    -fx-font-size: 18px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #00BCD4;
 }
@@ -327,7 +327,7 @@
    ================================================ */
 
 .check-box {
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-text-fill: #212121;
 }
 
